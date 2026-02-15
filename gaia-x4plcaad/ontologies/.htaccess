@@ -15,7 +15,7 @@ RewriteEngine on
 # GAIA-X 4 PLC AAD Ontologies - Static GitHub Pages resolution
 # NOTE: Repository migrated from GAIA-X4PLC-AAD to ASCS-eV.
 #       All redirects now point to ascs-ev.github.io.
-# Pattern: /{ontology}/v{version}[/][shapes]
+# Pattern: /{ontology}/v{version}[/][shapes|context]
 # Target:  ascs-ev.github.io/ontology-management-base/w3id/gaia-x4plcaad/ontologies/...
 # =============================================================================
 
@@ -54,6 +54,16 @@ RewriteRule ^([^/]+)/?$ https://ascs-ev.github.io/ontology-management-base/w3id/
 RewriteCond %{HTTP_ACCEPT} application/ld\+json [OR]
 RewriteCond %{HTTP_ACCEPT} application/json
 RewriteRule ^([^/]+)/?$ https://ascs-ev.github.io/ontology-management-base/w3id/gaia-x4plcaad/ontologies/$1/latest/context.jsonld [R=303,L]
+
+# --- Context sub-path (direct URL for JSON-LD @context references) ---
+# JSON-LD processors fetch @context URLs with a plain GET (no Accept header),
+# so these rules have no content-negotiation guard.
+
+# Versioned context
+RewriteRule ^([^/]+)/(v[0-9]+|latest)/context/?$ https://ascs-ev.github.io/ontology-management-base/w3id/gaia-x4plcaad/ontologies/$1/$2/context.jsonld [R=303,L]
+
+# Bare context (no version) → latest
+RewriteRule ^([^/]+)/context/?$ https://ascs-ev.github.io/ontology-management-base/w3id/gaia-x4plcaad/ontologies/$1/latest/context.jsonld [R=303,L]
 
 # -----------------------------------------------------------------------------
 # HTML fallback — redirect browsers to MkDocs documentation pages
