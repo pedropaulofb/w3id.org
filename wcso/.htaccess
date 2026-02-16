@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Special forwarding regarding human-readable documentation for /wcso/docs, including subpaths
-RewriteRule ^wcso/docs($|/.*)$ https://bamresearch.github.io/wcso/docs/$1 [R=301,L]
+RewriteRule ^docs($|/.*)$ https://bamresearch.github.io/wcso/docs/$1 [R=301,L]
 
 ##
 ## Edit the following two lines accordingly:
